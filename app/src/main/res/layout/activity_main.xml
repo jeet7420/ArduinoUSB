@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_below="@+id/buttonSend"
+        android:layout_below="@+id/buttonLight1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText"
@@ -59,10 +59,28 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear"
+        android:text="Clr"
         android:id="@+id/buttonClear"
         android:layout_below="@+id/editText"
         android:layout_toRightOf="@+id/buttonStop"
         android:layout_toEndOf="@+id/buttonStop"
         android:onClick="onClickClear"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LIGHT 1"
+        android:id="@+id/buttonLight1"
+        android:layout_below="@+id/buttonStart"
+        android:onClick="onClickLight1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LIGHT 2"
+        android:id="@+id/buttonLight2"
+        android:layout_below="@+id/buttonSend"
+        android:layout_toRightOf="@+id/buttonLight1"
+        android:onClick="onClickLight2"/>
+
 </RelativeLayout>

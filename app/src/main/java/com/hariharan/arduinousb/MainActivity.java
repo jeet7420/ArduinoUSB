@@ -33,6 +33,14 @@ public class MainActivity extends Activity {
     UsbSerialDevice serialPort;
     UsbDeviceConnection connection;
 
+    public static boolean ISLIGHT1ON=false;
+    public static boolean ISLIGHT2ON=false;
+
+    public static final String LIGHT1OF="10";
+    public static final String LIGHT1ON="11";
+    public static final String LIGHT2OF="20";
+    public static final String LIGHT2ON="21";
+
     UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() { //Defining a Callback which triggers whenever data is read.
         @Override
         public void onReceivedData(byte[] arg0) {
@@ -105,6 +113,14 @@ public class MainActivity extends Activity {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(broadcastReceiver, filter);
 
+        System.out.println("CHECK : " + ISLIGHT1ON);
+        System.out.println("CHECK : " + ISLIGHT2ON);
+
+        System.out.println("CHECK : " + LIGHT1OF);
+        System.out.println("CHECK : " + LIGHT1ON);
+        System.out.println("CHECK : " + LIGHT2OF);
+        System.out.println("CHECK : " + LIGHT2ON);
+
 
     }
 
@@ -124,7 +140,7 @@ public class MainActivity extends Activity {
             for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
                 device = entry.getValue();
                 int deviceVID = device.getVendorId();
-                if (deviceVID == 0x2341)//Arduino Vendor ID
+                if (deviceVID == 10755)//Arduino Vendor ID
                 {
                     PendingIntent pi = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
                     usbManager.requestPermission(device, pi);
@@ -144,6 +160,24 @@ public class MainActivity extends Activity {
 
     public void onClickSend(View view) {
         String string = editText.getText().toString();
+        serialPort.write(string.getBytes());
+        tvAppend(textView, "\nData Sent : " + string + "\n");
+
+    }
+
+    public void onClickLight1(View view) {
+        String string="";
+        if(ISLIGHT1ON) { string = LIGHT1OF; ISLIGHT1ON=false; }
+        else { string = LIGHT1ON; ISLIGHT1ON=true; }
+        serialPort.write(string.getBytes());
+        tvAppend(textView, "\nData Sent : " + string + "\n");
+
+    }
+
+    public void onClickLight2(View view) {
+        String string="";
+        if(ISLIGHT2ON) { string = LIGHT2OF; ISLIGHT2ON=false; }
+        else { string = LIGHT2ON; ISLIGHT2ON=true; }
         serialPort.write(string.getBytes());
         tvAppend(textView, "\nData Sent : " + string + "\n");
 
